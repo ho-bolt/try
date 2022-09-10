@@ -263,15 +263,15 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
 
             //누군가 들어왔을 때 나 빼고 다른 사람을 피어연결해준다. 
             const newPc = makeConnection(
-                userObjArr[i].socketId,
+                userObjArr[i + 1].socketId,
             );
-            console.log('담에 들어온 사람 ', userObjArr[i].socketId,)
+            console.log('담에 들어온 사람 ', userObjArr[i + 1].socketId,)
             //첨 있던 애가 offer 만들고
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
             await newPc.setLocalDescription(offer)
             console.log('offer 보냄')
-            socket.emit('offer', offer, userObjArr[i].socketId);
+            socket.emit('offer', offer, userObjArr[i + 1].socketId);
         } catch (err) {
             console.log(err)
         }
