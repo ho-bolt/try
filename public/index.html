@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Mendix 화상공유 테스트</h1>
+    </header>
+
+    <div id="welcome">
+      <form>
+        <input type="text" placeholder="방이름" required />
+        <button>입장</button>
+      </form>
+    </div>
+
+    <div id="call">
+      <div id="myStream">
+        <h1></h1>
+        <div id="myvideo-grid"></div>
+
+        <button id="camera">카메라 끄기</button>
+        <button id="mute">음소거</button>
+        <select id="cameras">
+          <option value="device">얼굴 캠</option>
+        </select>
+        <select id="microphone">
+          <option value="device">내 마이크</option>
+        </select>
+        <button id="screen">화면공유</button>
+      </div>
+      <div id="video-grid"></div>
+      <div id="screen-grid"></div>
+
+      <video
+        id="screenShare"
+        width="500"
+        height="500"
+        autoplay
+        playsinline
+      ></video>
+    </div>
+  </body>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/app.js"></script>
+</html>
