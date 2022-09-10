@@ -249,7 +249,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     // console.log("새로 들어온 사람 id", socketIdformserver)
 
     //누군가 들어왔을 때 실행
-    if (len === 1) {
+    if (len === 2) {
         return;
     }
     for (let i = 0; i < len - 1; i++) {
