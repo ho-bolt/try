@@ -35,7 +35,7 @@ async function getMedia(deviceId) {
     // deviceId ? camerConstraints : initialConstraints
     try {
         myStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
-        myFace.volume = 0
+        // myStream.volume = 0
         paintMyFace(myStream);
         // myFace.srcObject = myStream;
         if (!deviceId) {
@@ -79,7 +79,7 @@ async function paintMyFace(myStream) {
         const div = document.createElement('div')
         video.autoplay = true;
         video.playsInline = true;
-        myStream.volume = 0
+        video.volume = 0;
         video.srcObject = myStream
         div.appendChild(video)
         myvideoGrid.appendChild(div);
