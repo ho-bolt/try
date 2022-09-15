@@ -35,7 +35,7 @@ async function getMedia(deviceId) {
     // deviceId ? camerConstraints : initialConstraints
     try {
         myStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
-        // myFace.volume = 0
+        myFace.volume = 0
         paintMyFace(myStream);
         // myFace.srcObject = myStream;
         if (!deviceId) {
