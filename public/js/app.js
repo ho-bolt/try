@@ -1,7 +1,7 @@
 
 const socket = io();
 //io() function이 알아서 socket.io를 실행하고 있는 서버를 찾는다. 
-const socket2 = io();
+
 
 //html 가져오는 부분
 const myFace = document.getElementById('myFace');
@@ -28,17 +28,16 @@ async function getMedia(deviceId) {
         audio: true,
         video: { facingMode: 'user' },
     };
-    // const camerConstraints = {
-    //     audio: true,
-    //     video: { deviceId: { exact: deviceId } },
-    // };
-    // deviceId ? camerConstraints : initialConstraints
+    const cameraConstraints = {
+        audio: true,
+        video: { deviceId: { exact: deviceId } }
+    }
     try {
-        myStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
-        // myStream.volume = 0
-        paintMyFace(myStream);
-        // myFace.srcObject = myStream;
+        myStream = await navigator.mediaDevices.getUserMedia(
+            deviceId ? cameraConstraints : initialConstraints
+        )
         if (!deviceId) {
+            paintMyFace(myStream);
             await getCamers();
         }
         console.log('오디오 가져올때 에러나나?')
@@ -56,13 +55,8 @@ async function getShareScreenMedia(deviceId) {
 
     try {
         screenStream = await navigator.mediaDevices.getDisplayMedia(initialConstraints)
-        // paintMyShareVideo(screenStream);
         screenShare.srcObject = screenStream;
-
-        console.log("나 소켓 있어?", socket2.id)
         makeConnection(socket2.id);
-
-
     } catch (err) {
         console.log(err);
     }
@@ -169,6 +163,7 @@ async function getCamers() {
 //카메라를 선택할 수 있음
 async function handleCameraChange() {
     await getMedia(camersSelect.value);
+    console.log("카메라 정보 가져오기", camersSelect.value)
     if (myPeerConnection) {
         const vidoeTrack = myStream.getVideoTracks()[0];
         const videoSender = myPeerConnection
@@ -183,15 +178,6 @@ async function handleMicroChange() {
 
 }
 
-// const displayMediaStreamConstraints = {
-//     video: true // or pass HINTS
-// };
-
-// if (navigator.mediaDevices.getDisplayMedia) {
-//     navigator.mediaDevices.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
-// } else {
-//     navigator.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
-// }
 
 
 
@@ -259,8 +245,6 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         try {
             //RTCPerrconnection생성
             console.log("번호", i)
-
-
             //누군가 들어왔을 때 나 빼고 다른 사람을 피어연결해준다. 
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
