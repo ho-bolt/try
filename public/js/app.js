@@ -297,7 +297,7 @@ socket.on('ice', async (ice, remoteSocketId) => {
 
 socket.on('full', () => {
     alert('정원 초과입니다!');
-    history.back();
+    location.reload()
 })
 
 
