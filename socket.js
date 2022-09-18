@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 // const credentials = require('./config/httpsConfig');
 
-const max = 10;
+const max = 2;
 //룸이 만들어지면 쌓이는 배열 
 let roomObjArr = [];
 

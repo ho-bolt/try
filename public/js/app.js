@@ -250,7 +250,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
                 userObjArr[i + 1].socketId,
             );
             console.log('담에 들어온 사람 ', userObjArr[i + 1].socketId,)
-            //첨 있던 애가 offer 만들고
+
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
             await newPc.setLocalDescription(offer)
@@ -261,7 +261,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         }
     }
 
-    // myPeerConnection.setLocalDescription(offer);
+
 });
 
 //나중에 들어온 사람 
@@ -275,11 +275,8 @@ socket.on('offer', async (offer, remoteSocketId) => {
         const newPc = makeConnection(remoteSocketId)
         await newPc.setRemoteDescription(offer);
         //학선님 answer
-        console.log('나중에 들어온 애 answer 만듬 ')
         const answer = await newPc.createAnswer();
-        console.log('로컬에 answer 세팅')
         await newPc.setLocalDescription(answer);
-        console.log('answer 보냄 ')
         socket.emit('answer', answer, remoteSocketId);
     } catch (err) {
         console.log(err)
@@ -289,7 +286,6 @@ socket.on('offer', async (offer, remoteSocketId) => {
 //먼저 들어와있던 사람(서호진)
 socket.on('answer', async (answer, remoteSocketId) => {
     // myPeerConnection.setRemoteDescription(answer);
-    console.log("컴퓨터 객체", pcObj)
     await pcObj[remoteSocketId].setRemoteDescription(answer)
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
