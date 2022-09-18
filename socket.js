@@ -82,11 +82,7 @@ io.on('connection', (socket) => {
         socket.to(roomName).emit('welcome', targetRoomObj.users, socket.id);
 
     });
-
-
-
     socket.on('offer', (offer, remoteSocketId) => {
-
         socket.to(remoteSocketId).emit('offer', offer, socket.id);
     });
 
@@ -107,7 +103,6 @@ io.on('connection', (socket) => {
                 break;
             }
         }
-
     })
 
     socket.on('ice', (ice, remoteSocketId) => {
