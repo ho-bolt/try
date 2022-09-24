@@ -324,9 +324,9 @@ function makeConnection(remoteSocketId) {
                     urls: "stun:stunserver.example.org"
                 },
                 {
-                    urls: "turn:3.36.73.5",
-                    username: "chattingqr",
-                    credential: "chattingqr1234"
+                    urls: "turn:52.79.93.143",
+                    username: "booking",
+                    credential: "booking1234"
                 }
             ]
         }
